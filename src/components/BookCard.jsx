@@ -1,13 +1,11 @@
 import '@/styles/gutenberg.css';
 
-interface BookCardProps {
-  title: string;
-  author: string;
-  cover: string;
-  onClick: () => void;
-}
+const BookCard = function(props) {
+  var title = props.title;
+  var author = props.author;
+  var cover = props.cover;
+  var onClick = props.onClick;
 
-const BookCard = ({ title, author, cover, onClick }: BookCardProps) => {
   return (
     <div className="book-card" onClick={onClick}>
       <img src={cover} alt={title} className="book-cover" />

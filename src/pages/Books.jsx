@@ -7,46 +7,46 @@ import {
   fetchBooks, 
   getCoverImage, 
   getAuthorName, 
-  getViewableUrl,
-  GutendexBook 
+  getViewableUrl
 } from '@/services/gutendexApi';
 import BackIcon from '@/assets/icons/Back.svg';
 import '@/styles/gutenberg.css';
 
-const Books = () => {
-  const { genre } = useParams<{ genre: string }>();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [books, setBooks] = useState<GutendexBook[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-  const [error, setError] = useState<string | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+const Books = function() {
+  var { genre } = useParams();
+  var [searchQuery, setSearchQuery] = useState('');
+  var [books, setBooks] = useState([]);
+  var [loading, setLoading] = useState(false);
+  var [hasMore, setHasMore] = useState(true);
+  var [page, setPage] = useState(1);
+  var [error, setError] = useState(null);
+  var observerRef = useRef(null);
+  var loadMoreRef = useRef(null);
+  var searchTimeoutRef = useRef(null);
 
-  const genreData = genres.find(g => g.id === genre);
-  const genreName = genreData?.name || genre?.toUpperCase() || 'Books';
+  var genreData = genres.find(function(g) { return g.id === genre; });
+  var genreName = genreData ? genreData.name : (genre ? genre.toUpperCase() : 'Books');
 
   // Load books using promises
-  const loadBooks = useCallback((pageNum: number, reset: boolean = false) => {
+  var loadBooks = useCallback(function(pageNum, reset) {
+    if (reset === undefined) reset = false;
     if (loading) return;
     
     setLoading(true);
     setError(null);
 
     fetchBooks(genre || '', searchQuery, pageNum)
-      .then(data => {
+      .then(function(data) {
         if (reset) {
           setBooks(data.results);
         } else {
-          setBooks(prev => [...prev, ...data.results]);
+          setBooks(function(prev) { return prev.concat(data.results); });
         }
         setHasMore(data.next !== null);
         setPage(pageNum);
         setLoading(false);
       })
-      .catch(err => {
+      .catch(function(err) {
         console.error('Error fetching books:', err);
         setError('Failed to load books. Please try again.');
         setLoading(false);
@@ -54,7 +54,7 @@ const Books = () => {
   }, [genre, searchQuery, loading]);
 
   // Initial load and genre change
-  useEffect(() => {
+  useEffect(function() {
     setBooks([]);
     setPage(1);
     setHasMore(true);
@@ -62,19 +62,19 @@ const Books = () => {
   }, [genre]);
 
   // Handle search with debounce
-  useEffect(() => {
+  useEffect(function() {
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
 
-    searchTimeoutRef.current = setTimeout(() => {
+    searchTimeoutRef.current = setTimeout(function() {
       setBooks([]);
       setPage(1);
       setHasMore(true);
       loadBooks(1, true);
     }, 500);
 
-    return () => {
+    return function() {
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current);
       }
@@ -82,13 +82,13 @@ const Books = () => {
   }, [searchQuery]);
 
   // Infinite scroll observer
-  useEffect(() => {
+  useEffect(function() {
     if (observerRef.current) {
       observerRef.current.disconnect();
     }
 
     observerRef.current = new IntersectionObserver(
-      entries => {
+      function(entries) {
         if (entries[0].isIntersecting && hasMore && !loading) {
           loadBooks(page + 1, false);
         }
@@ -100,7 +100,7 @@ const Books = () => {
       observerRef.current.observe(loadMoreRef.current);
     }
 
-    return () => {
+    return function() {
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
@@ -108,8 +108,8 @@ const Books = () => {
   }, [hasMore, loading, page, loadBooks]);
 
   // Handle book click - open in browser
-  const handleBookClick = (book: GutendexBook) => {
-    const viewableUrl = getViewableUrl(book.formats);
+  var handleBookClick = function(book) {
+    var viewableUrl = getViewableUrl(book.formats);
     
     if (viewableUrl) {
       window.open(viewableUrl, '_blank');
@@ -138,15 +138,17 @@ const Books = () => {
           <p className="books-error">{error}</p>
         )}
         <div className="books-grid">
-          {books.map((book) => (
-            <BookCard
-              key={book.id}
-              title={book.title}
-              author={getAuthorName(book.authors)}
-              cover={getCoverImage(book.formats)}
-              onClick={() => handleBookClick(book)}
-            />
-          ))}
+          {books.map(function(book) {
+            return (
+              <BookCard
+                key={book.id}
+                title={book.title}
+                author={getAuthorName(book.authors)}
+                cover={getCoverImage(book.formats)}
+                onClick={function() { handleBookClick(book); }}
+              />
+            );
+          })}
         </div>
         
         {/* Loading indicator */}
@@ -165,7 +167,7 @@ const Books = () => {
         {/* No results message */}
         {!loading && books.length === 0 && !error && (
           <p className="books-no-results">
-            {searchQuery ? `No books found matching "${searchQuery}"` : 'No books found in this category'}
+            {searchQuery ? 'No books found matching "' + searchQuery + '"' : 'No books found in this category'}
           </p>
         )}
       </div>

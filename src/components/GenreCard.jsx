@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 import NextIcon from '@/assets/icons/Next.svg';
 
-interface GenreCardProps {
-  name: string;
-  icon: string;
-  path: string;
-}
+const GenreCard = function(props) {
+  var name = props.name;
+  var icon = props.icon;
+  var path = props.path;
 
-const GenreCard = ({ name, icon, path }: GenreCardProps) => {
   return (
     <Link to={path} className="genre-card">
       <img src={icon} alt={name} className="genre-card-icon" />
