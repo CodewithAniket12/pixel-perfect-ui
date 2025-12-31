@@ -8,14 +8,7 @@ import AdventureIcon from '@/assets/icons/Adventure.svg';
 // Note: Philosophy icon is not provided, using Fiction as placeholder
 // You can replace it when you have the Philosophy icon
 
-export interface Genre {
-  id: string;
-  name: string;
-  icon: string;
-  path: string;
-}
-
-export const genres: Genre[] = [
+export var genres = [
   {
     id: 'fiction',
     name: 'FICTION',

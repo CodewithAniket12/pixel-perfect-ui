@@ -12,15 +12,7 @@ import harryPotterDeathly from '@/assets/books/harry-potter-deathly.png';
 import beastsBlackHole from '@/assets/books/beasts-black-hole.png';
 import taleTwoCities from '@/assets/books/tale-two-cities.png';
 
-export interface Book {
-  id: string;
-  title: string;
-  author: string;
-  cover: string;
-  genre: string;
-}
-
-export const books: Book[] = [
+export var books = [
   {
     id: '1',
     title: 'THE OLD MAN AND THE SEA',
@@ -211,6 +203,8 @@ export const books: Book[] = [
   },
 ];
 
-export const getBooksByGenre = (genre: string): Book[] => {
-  return books.filter(book => book.genre === genre.toLowerCase());
+export var getBooksByGenre = function(genre) {
+  return books.filter(function(book) {
+    return book.genre === genre.toLowerCase();
+  });
 };

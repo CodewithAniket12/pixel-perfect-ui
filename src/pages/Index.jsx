@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-const Index = () => {
+var Index = function() {
   return <Navigate to="/" replace />;
 };
 
