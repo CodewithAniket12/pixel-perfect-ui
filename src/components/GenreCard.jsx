@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import NextIcon from '@/assets/icons/Next.svg';
 
-const GenreCard = function(props) {
+var GenreCard = function(props) {
   var name = props.name;
   var icon = props.icon;
   var path = props.path;

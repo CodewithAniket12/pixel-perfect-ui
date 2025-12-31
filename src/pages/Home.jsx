@@ -1,7 +1,6 @@
 import GenreCard from '@/components/GenreCard';
 import { genres } from '@/data/genres';
 import PatternSvg from '@/assets/icons/Pattern.svg';
-import '@/styles/gutenberg.css';
 
 var Home = function() {
   return (
