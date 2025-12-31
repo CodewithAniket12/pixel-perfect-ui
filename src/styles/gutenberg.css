@@ -11,9 +11,6 @@
   --card-shadow: 0 2px 5px 0 rgba(211, 209, 238, 0.5);
 }
 
-/* Font Import */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-
 /* Base Styles */
 * {
   box-sizing: border-box;
@@ -292,4 +289,52 @@ body {
   font-weight: 400;
   font-size: 12px;
   color: var(--text-gray);
+}
+
+/* Loading States */
+.books-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--text-gray);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--background-gray);
+  border-top-color: var(--primary-purple);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.books-error {
+  text-align: center;
+  color: #e74c3c;
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+}
+
+.books-no-results {
+  text-align: center;
+  color: var(--text-gray);
+  padding: 40px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.load-more-trigger {
+  height: 100px;
+  width: 100%;
 }
