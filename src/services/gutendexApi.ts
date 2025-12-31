@@ -1,6 +1,6 @@
 // Gutendex API Service using Promises (no async/await)
 
-const BASE_URL = 'http://skunkworks.ignitesol.com:8000';
+const BASE_URL = 'https://gutendex.com';
 
 export interface GutendexBook {
   id: number;
