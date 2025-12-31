@@ -1,7 +1,7 @@
 import SearchIcon from '@/assets/icons/Search.svg';
 import CancelIcon from '@/assets/icons/Cancel.svg';
 
-const SearchBox = function(props) {
+var SearchBox = function(props) {
   var value = props.value;
   var onChange = props.onChange;
   var placeholder = props.placeholder || 'Search';

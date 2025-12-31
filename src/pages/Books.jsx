@@ -10,9 +10,8 @@ import {
   getViewableUrl
 } from '@/services/gutendexApi';
 import BackIcon from '@/assets/icons/Back.svg';
-import '@/styles/gutenberg.css';
 
-const Books = function() {
+var Books = function() {
   var { genre } = useParams();
   var [searchQuery, setSearchQuery] = useState('');
   var [books, setBooks] = useState([]);

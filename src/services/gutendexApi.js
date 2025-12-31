@@ -1,30 +1,33 @@
 // Gutendex API Service using Promises (no async/await)
 
-const BASE_URL = 'https://gutendex.com';
+var BASE_URL = 'https://gutendex.com';
 
 // Get the viewable URL for a book (HTML > PDF > TXT, excluding zip files)
 export function getViewableUrl(formats) {
   // Priority: HTML, PDF, TXT (excluding zip files)
-  const htmlKey = Object.keys(formats).find(
-    key => key.includes('text/html') && !formats[key].includes('.zip')
-  );
+  var htmlKey = Object.keys(formats).find(function(key) {
+    return key.includes('text/html') && !formats[key].includes('.zip');
+  });
   if (htmlKey) return formats[htmlKey];
 
-  const pdfKey = Object.keys(formats).find(
-    key => key.includes('application/pdf') && !formats[key].includes('.zip')
-  );
+  var pdfKey = Object.keys(formats).find(function(key) {
+    return key.includes('application/pdf') && !formats[key].includes('.zip');
+  });
   if (pdfKey) return formats[pdfKey];
 
-  const txtKey = Object.keys(formats).find(
-    key => key.includes('text/plain') && !formats[key].includes('.zip')
-  );
+  var txtKey = Object.keys(formats).find(function(key) {
+    return key.includes('text/plain') && !formats[key].includes('.zip');
+  });
   if (txtKey) return formats[txtKey];
 
   return null;
 }
 
 // Fetch books from the API with filtering
-export function fetchBooks(topic, search = '', page = 1) {
+export function fetchBooks(topic, search, page) {
+  if (search === undefined) search = '';
+  if (page === undefined) page = 1;
+  
   return new Promise(function(resolve, reject) {
     var params = new URLSearchParams();
     

@@ -4,10 +4,7 @@ import HumourIcon from '@/assets/icons/Humour.svg';
 import PoliticsIcon from '@/assets/icons/Politics.svg';
 import HistoryIcon from '@/assets/icons/History.svg';
 import AdventureIcon from '@/assets/icons/Adventure.svg';
-
-// Note: Philosophy icon is not provided, using Fiction as placeholder
-// You can replace it when you have the Philosophy icon
-
+import PhilosophyIcon from '@/assets/icons/Philosophy.svg';
 export var genres = [
   {
     id: 'fiction',
@@ -18,7 +15,7 @@ export var genres = [
   {
     id: 'philosophy',
     name: 'PHILOSOPHY',
-    icon: FictionIcon, // Placeholder - replace with Philosophy icon
+    icon: PhilosophyIcon,
     path: '/books/philosophy'
   },
   {

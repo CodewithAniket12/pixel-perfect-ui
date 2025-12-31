@@ -1,6 +1,6 @@
 import '@/styles/gutenberg.css';
 
-const BookCard = function(props) {
+var BookCard = function(props) {
   var title = props.title;
   var author = props.author;
   var cover = props.cover;
