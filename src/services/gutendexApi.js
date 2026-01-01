@@ -1,6 +1,6 @@
 // Gutendex API Service using Promises (no async/await)
 
-var BASE_URL = 'http://skunkworks.ignitesol.com:8000';
+var BASE_URL = 'https://gutendex.com';
 
 // Get the viewable URL for a book (HTML > PDF > TXT, excluding zip files)
 export function getViewableUrl(formats) {
