@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
 import NotFound from "./pages/NotFound";
-import "./styles/gutenberg.css";
+import "./styles/main.css";
 
 var App = function() {
   return (
