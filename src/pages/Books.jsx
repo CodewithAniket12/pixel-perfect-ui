@@ -125,38 +125,61 @@ function Books() {
   }
 
   if (loading) {
-    return <div className="page">Loading...</div>;
+    return (
+      <div className="page">
+        <div className="books-header-section">
+          <Header title={genre} />
+          <SearchBar value={search} onChange={handleSearchChange} />
+        </div>
+        <div className="books-content">
+          <div className="loading-more">Loading...</div>
+        </div>
+      </div>
+    );
   }
   
   if (error) {
-    return <div className="page">{error}</div>;
+    return (
+      <div className="page">
+        <div className="books-header-section">
+          <Header title={genre} />
+        </div>
+        <div className="books-content">
+          <div className="loading-more">{error}</div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="page">
-      <Header title={genre} />
-      <SearchBar value={search} onChange={handleSearchChange} />
-      
-      <div className="books-grid">
-        {books.map(function(book, index) {
-          var cover = book.formats && book.formats['image/jpeg'];
-          var author = book.authors && book.authors[0] ? book.authors[0].name : 'Unknown Author';
-          var isLast = index === books.length - 1;
-          
-          return (
-            <div key={book.id} ref={isLast ? lastBookRef : null}>
-              <BookCard
-                title={book.title}
-                author={author}
-                cover={cover}
-                onClick={function() { openBook(book); }}
-              />
-            </div>
-          );
-        })}
+      <div className="books-header-section">
+        <Header title={genre} />
+        <SearchBar value={search} onChange={handleSearchChange} />
       </div>
       
-      {loadingMore && <div className="loading-more">Loading more...</div>}
+      <div className="books-content">
+        <div className="books-grid">
+          {books.map(function(book, index) {
+            var cover = book.formats && book.formats['image/jpeg'];
+            var author = book.authors && book.authors[0] ? book.authors[0].name : 'Unknown Author';
+            var isLast = index === books.length - 1;
+            
+            return (
+              <div key={book.id} ref={isLast ? lastBookRef : null}>
+                <BookCard
+                  title={book.title}
+                  author={author}
+                  cover={cover}
+                  onClick={function() { openBook(book); }}
+                />
+              </div>
+            );
+          })}
+          
+          {loadingMore && <div className="loading-more">Loading more...</div>}
+        </div>
+      </div>
     </div>
   );
 }
