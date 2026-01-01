@@ -1,11 +1,6 @@
-import '@/styles/gutenberg.css';
+import React from 'react';
 
-var BookCard = function(props) {
-  var title = props.title;
-  var author = props.author;
-  var cover = props.cover;
-  var onClick = props.onClick;
-
+var BookCard = function({ title, author, cover, onClick }) {
   return (
     <div className="book-card" onClick={onClick}>
       <img src={cover} alt={title} className="book-cover" />
