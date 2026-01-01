@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import "../styles/gutenberg.css";
+import "../styles/main.css";
 
 var NotFound = function() {
   var location = useLocation();
