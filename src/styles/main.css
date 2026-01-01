@@ -199,12 +199,13 @@ body {
 /* Books grid */
 .books-grid {
   display: grid;
-  grid-template-columns: repeat(6, 140px);
+  grid-template-columns: repeat(auto-fill, 140px);
   gap: 35px 24px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 0 120px;
+  justify-content: space-between;
 }
 
 /* Book card */
