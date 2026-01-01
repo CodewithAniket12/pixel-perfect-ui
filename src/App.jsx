@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
-import NotFound from "./pages/NotFound";
 import "./styles/main.css";
 
 var App = function() {
@@ -10,7 +9,7 @@ var App = function() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books/:genre" element={<Books />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
