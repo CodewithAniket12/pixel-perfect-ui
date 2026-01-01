@@ -7,14 +7,9 @@ function Header({ title }) {
   return (
     <div className="books-header">
       <button
+        type="button"
         className="back-button"
-        onClick={() => {
-          if (window.history.length > 1) {
-            navigate(-1)
-          } else {
-            navigate('/')
-          }
-        }}
+        onClick={() => navigate('/')}
       >
         <img src={backIcon} alt="Back" />
       </button>
