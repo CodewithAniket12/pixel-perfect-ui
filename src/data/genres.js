@@ -1,10 +1,11 @@
-import FictionIcon from '@/assets/icons/Fiction.svg';
-import DramaIcon from '@/assets/icons/Drama.svg';
-import HumourIcon from '@/assets/icons/Humour.svg';
-import PoliticsIcon from '@/assets/icons/Politics.svg';
-import HistoryIcon from '@/assets/icons/History.svg';
-import AdventureIcon from '@/assets/icons/Adventure.svg';
-import PhilosophyIcon from '@/assets/icons/Philosophy.svg';
+import FictionIcon from '../assets/icons/Fiction.svg';
+import DramaIcon from '../assets/icons/Drama.svg';
+import HumourIcon from '../assets/icons/Humour.svg';
+import PoliticsIcon from '../assets/icons/Politics.svg';
+import HistoryIcon from '../assets/icons/History.svg';
+import AdventureIcon from '../assets/icons/Adventure.svg';
+import PhilosophyIcon from '../assets/icons/Philosophy.svg';
+
 export var genres = [
   {
     id: 'fiction',
