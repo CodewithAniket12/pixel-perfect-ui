@@ -1,2 +1,1 @@
-/* Plain CSS entrypoint (no Tailwind directives) */
-@import "./styles/gutenberg.css";
+@import "./styles/main.css";
