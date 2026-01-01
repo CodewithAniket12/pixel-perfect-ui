@@ -6,7 +6,16 @@ function Header({ title }) {
 
   return (
     <div className="books-header">
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button
+        className="back-button"
+        onClick={() => {
+          if (window.history.length > 1) {
+            navigate(-1)
+          } else {
+            navigate('/')
+          }
+        }}
+      >
         <img src={backIcon} alt="Back" />
       </button>
       <span className="books-title">{title}</span>
