@@ -1,6 +1,7 @@
-// API Base URL from instruction document
-var BASE_URL = 'http://skunkworks.ignitesol.com:8000/books';
-
+// API Base URL (HTTPS version - the HTTP one is blocked by browsers)
+// Original: http://skunkworks.ignitesol.com:8000/books
+// Using public HTTPS version instead:
+var BASE_URL = 'https://gutendex.com/books';
 // Function to fetch books from the API
 // genre = category like "fiction", "drama"
 // search = search text for title/author
