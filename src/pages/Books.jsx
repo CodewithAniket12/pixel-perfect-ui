@@ -132,8 +132,9 @@ function Books() {
   if (error) {
     return (
       <div className="page">
-        <div className="books-header-section">
+      <div className="books-header-section">
           <Header title={genre} />
+          <SearchBar value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
         <div className="books-content">
           <div className="loading-more">{error}</div>
