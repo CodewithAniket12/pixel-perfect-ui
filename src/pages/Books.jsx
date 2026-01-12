@@ -16,29 +16,8 @@ function Books() {
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // Load books when genre changes
+  // Load books when genre or search changes
   useEffect(() => {
-    setLoading(true);
-    setBooks([]);
-    setPage(1);
-    setSearch('');
-    
-    fetchBooks(genre, '', 1)
-      .then((data) => {
-        setBooks(data.results);
-        setHasMore(data.next !== null);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError('Failed to load books');
-        setLoading(false);
-      });
-  }, [genre]);
-
-  // Search books when search text changes
-  useEffect(() => {
-    if (search === '') return;
-    
     setLoading(true);
     setBooks([]);
     setPage(1);
@@ -53,7 +32,7 @@ function Books() {
         setError('Failed to load books');
         setLoading(false);
       });
-  }, [search, genre]);
+  }, [genre, search]);
 
   // Load more books (next page)
   const loadMore = () => {
