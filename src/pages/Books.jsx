@@ -16,38 +16,44 @@ function Books() {
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // Load books when genre or search changes
+  // Load books when genre changes
   useEffect(() => {
-    let cancelled = false;
+    setLoading(true);
+    setBooks([]);
+    setPage(1);
+    setSearch('');
+    
+    fetchBooks(genre, '', 1)
+      .then((data) => {
+        setBooks(data.results);
+        setHasMore(data.next !== null);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError('Failed to load books');
+        setLoading(false);
+      });
+  }, [genre]);
+
+  // Search books when search text changes
+  useEffect(() => {
+    if (search === '') return;
     
     setLoading(true);
     setBooks([]);
     setPage(1);
-    setError(null);
     
-    // Debounce search to avoid too many API calls
-    const timeoutId = setTimeout(() => {
-      fetchBooks(genre, search, 1)
-        .then((data) => {
-          if (!cancelled) {
-            setBooks(data.results);
-            setHasMore(data.next !== null);
-            setLoading(false);
-          }
-        })
-        .catch(() => {
-          if (!cancelled) {
-            setError('Failed to load books');
-            setLoading(false);
-          }
-        });
-    }, search ? 300 : 0); // Debounce only for search, not for genre change
-    
-    return () => {
-      cancelled = true;
-      clearTimeout(timeoutId);
-    };
-  }, [genre, search]);
+    fetchBooks(genre, search, 1)
+      .then((data) => {
+        setBooks(data.results);
+        setHasMore(data.next !== null);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError('Failed to load books');
+        setLoading(false);
+      });
+  }, [search, genre]);
 
   // Load more books (next page)
   const loadMore = () => {
@@ -146,22 +152,26 @@ function Books() {
       </div>
       
       <div className="books-content" onScroll={handleScroll} style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 180px)' }}>
-        <div className="books-grid">
-          {books.map((book) => {
-            const cover = book.formats['image/jpeg'];
-            const author = book.authors[0] ? book.authors[0].name : 'Unknown Author';
-            
-            return (
-              <BookCard
-                key={book.id}
-                title={book.title}
-                author={author}
-                cover={cover}
-                onClick={() => openBook(book)}
-              />
-            );
-          })}
-        </div>
+        {books.length === 0 ? (
+          <div className="loading-more">No books available</div>
+        ) : (
+          <div className="books-grid">
+            {books.map((book) => {
+              const cover = book.formats['image/jpeg'];
+              const author = book.authors[0] ? book.authors[0].name : 'Unknown Author';
+              
+              return (
+                <BookCard
+                  key={book.id}
+                  title={book.title}
+                  author={author}
+                  cover={cover}
+                  onClick={() => openBook(book)}
+                />
+              );
+            })}
+          </div>
+        )}
         
         {loadingMore && <div className="loading-more">Loading more...</div>}
       </div>
