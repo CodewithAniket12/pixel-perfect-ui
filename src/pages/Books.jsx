@@ -16,44 +16,38 @@ function Books() {
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // Load books when genre changes
+  // Load books when genre or search changes
   useEffect(() => {
-    setLoading(true);
-    setBooks([]);
-    setPage(1);
-    setSearch('');
-    
-    fetchBooks(genre, '', 1)
-      .then((data) => {
-        setBooks(data.results);
-        setHasMore(data.next !== null);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError('Failed to load books');
-        setLoading(false);
-      });
-  }, [genre]);
-
-  // Search books when search text changes
-  useEffect(() => {
-    if (search === '') return;
+    let cancelled = false;
     
     setLoading(true);
     setBooks([]);
     setPage(1);
+    setError(null);
     
-    fetchBooks(genre, search, 1)
-      .then((data) => {
-        setBooks(data.results);
-        setHasMore(data.next !== null);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError('Failed to load books');
-        setLoading(false);
-      });
-  }, [search, genre]);
+    // Debounce search to avoid too many API calls
+    const timeoutId = setTimeout(() => {
+      fetchBooks(genre, search, 1)
+        .then((data) => {
+          if (!cancelled) {
+            setBooks(data.results);
+            setHasMore(data.next !== null);
+            setLoading(false);
+          }
+        })
+        .catch(() => {
+          if (!cancelled) {
+            setError('Failed to load books');
+            setLoading(false);
+          }
+        });
+    }, search ? 300 : 0); // Debounce only for search, not for genre change
+    
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+    };
+  }, [genre, search]);
 
   // Load more books (next page)
   const loadMore = () => {
