@@ -11,18 +11,29 @@ function Books() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState('');           // What user types (updates instantly)
+  const [debouncedSearch, setDebouncedSearch] = useState(''); // What we actually search (updates after delay)
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
 
-  // Load books when genre or search changes
+  // DEBOUNCE: Wait 500ms after user stops typing, then update debouncedSearch
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);  // After 500ms, copy search → debouncedSearch
+    }, 500);
+
+    // CLEANUP: If user types again before 500ms, cancel the old timer
+    return () => clearTimeout(timer);
+  }, [search]);  // Runs every time 'search' changes
+
+  // Load books when genre or DEBOUNCED search changes (not on every keystroke!)
   useEffect(() => {
     setLoading(true);
     setBooks([]);
     setPage(1);
     
-    fetchBooks(genre, search, 1)
+    fetchBooks(genre, debouncedSearch, 1)
       .then((data) => {
         setBooks(data.results);
         setHasMore(data.next !== null);
@@ -32,7 +43,7 @@ function Books() {
         setError('Failed to load books');
         setLoading(false);
       });
-  }, [genre, search]);
+  }, [genre, debouncedSearch]);  // Now depends on debouncedSearch, not search
 
   // Load more books (next page)
   const loadMore = () => {
